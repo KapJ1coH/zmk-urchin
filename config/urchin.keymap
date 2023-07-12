@@ -10,7 +10,6 @@
 #define SYM1 3
 #define SYM2 4
 #define FNC 5
-#define QWERTY 6
 // -----------------
 
 &sk {
@@ -65,7 +64,7 @@
 			&kp B &kp Y &kp O &kp U &kp Z           &kp Q &kp L  &kp D  &kp W  &kp V 
 			&kp C &kp I &kp E &kp A &kp SQT    		&kp FSLH &kp H  &kp T  &kp S &kp N
 			&kp G &kp X &kp J &kp K &kp COMMA       &kp DOT &kp R  &kp M &kp F &kp P
-							&sl EXT &kp SPACE        &sl SHIFT &sl SYM
+							&sl EXT &kp SPACE        &sl SHIFT &sl SYM1
 			>;
 		};
 
@@ -125,16 +124,5 @@
 			>;
 		};
 
-
-		// Used to change the keyboard's settings.
-		settings_layer {
-				label = "Sett";
-				bindings = <
-				&bootloader &none &none &bt BT_CLR &bt BT_SEL 0         &bt BT_SEL 3 &none &unstick &none &bootloader 
-				&none &none &none &none      &bt BT_SEL 1 				&bt BT_SEL 4 &none &none &none &none
-				&none &none &none &none      &bt BT_SEL 2               &bt BT_SEL 5 &none &none &none &none
-										&none &none                         &none &none 
-				>;
-		};
 	};
 };
