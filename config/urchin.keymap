@@ -105,7 +105,7 @@
 		sym2_layer {
 			label = "Sym.2";
 			bindings = <
-			&kp HASH &kp UNDERSCORE &kp PND &kp EUR &kp DOLLAR      &none &none &none &none &none 
+			&kp HASH &kp UNDERSCORE &none &none &kp DOLLAR      &none &none &none &none &none 
 			&kp GRAVE &kp TILDE &kp PIPE &none &none         		&none &none &none &none &none
 			&none &none &none &none &none			  				&none &none &none &none &none
 								&none &none        					&none &none 
