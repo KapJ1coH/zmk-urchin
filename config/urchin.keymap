@@ -72,9 +72,9 @@
 		shift_layer {
 			label = "Shift";
 			bindings = <
-			&sh &kp B &sh &kp Y &sh &kp O &sh &kp U &sh &kp Z           &sh &kp Q &sh &kp L  &sh &kp D  &sh &kp W  &sh &kp V 
-			&sh &kp C &sh &kp I &sh &kp E &sh &kp A &kp DQT    		&kp QMARK &sh &kp H  &sh &kp T  &sh &kp S &sh &kp N
-			&sh &kp G &sh &kp X &sh &kp J &sh &kp K &kp SEMI       &kp COLON &sh &kp R  &sh &kp M &sh &kp F &sh &kp P
+			&kp LS(B) &kp LS(Y) &kp LS(O) &kp LS(U) &kp LS(Z)           &kp LS(Q) &kp LS(L)  &kp LS(D)  &kp LS(W)  &kp LS(V) 
+			&kp LS(C) &kp LS(I) &kp LS(E) &kp LS(A) &kp DQT    		&kp QMARK &kp LS(H)  &kp LS(T)  &kp LS(S) &kp LS(N)
+			&kp LS(G) &kp LS(X) &kp LS(J) &kp LS(K) &kp SEMI       &kp COLON &kp LS(R)  &kp LS(M) &kp LS(F) &kp LS(P)
 							&mo EXT &kp SPACE         			  &sl SHIFT  &sl SYM1
 			>;
 		};
