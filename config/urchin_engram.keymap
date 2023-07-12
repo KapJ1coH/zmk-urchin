@@ -1,0 +1,140 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+// Layer definitions
+#define BASE 0
+#define SHIFT 1
+#define EXT 2
+#define SYM1 3
+#define SYM2 4
+#define FNC 5
+#define QWERTY 6
+// -----------------
+
+&sk {
+	// don't release mods on other mods presses
+	ignore-modifiers;
+};
+
+
+/ {
+	behaviors {
+		// Enables holding the first mod-tap key
+		// by performing a tap-release-hold sequence.
+		// To use it: "&qt KEYCODE1 KEYCODE2"
+		qt: quick_tap {
+			compatible = "zmk,behavior-hold-tap";
+			label = "QUICK_TAP";
+			#binding-cells = <2>;
+			flavor = "hold-preferred";
+			tapping-term-ms = <200>;
+			quick-tap-ms = <200>;
+			bindings = <&kp>, <&kp>;
+		};
+	};
+
+	macros {
+		// sometimes my device thinks a modifier is being held down
+		// pressing all modifiers fixes it.
+		unstick: unstick {
+			label = "ZM_unstick";
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL &kp LALT &kp RALT &kp LGUI &kp RGUI>;
+		};
+	};
+
+	combos {
+		compatible = "zmk,combos";
+		// internal-left & external-right thumb keys
+		combo_sym2 {
+			timeout-ms = <200>;
+			key-positions = <31 33>;
+			bindings = <&mo SYM2>;
+		};
+	};
+
+	keymap {
+		compatible = "zmk,keymap";
+		// Base alpha layer
+		default_layer {
+			label = "Base";
+			bindings = <
+			&kp B &kp Y &kp O &kp U &kp Z           &kp Q &kp L  &kp D  &kp W  &kp V 
+			&kp C &kp I &kp E &kp A &kp SQT    		&kp FSLH &kp H  &kp T  &kp S &kp N
+			&kp G &kp X &kp J &kp K &kp COMMA       &kp DOT &kp R  &kp M &kp F &kp P
+							&sl EXT &kp SPACE        &sl SHIFT &sl SYM
+			>;
+		};
+
+		// Base layer shifted
+		shift_layer {
+			label = "Shift";
+			bindings = <
+			&sh &kp B &sh &kp Y &sh &kp O &sh &kp U &sh &kp Z           &sh &kp Q &sh &kp L  &sh &kp D  &sh &kp W  &sh &kp V 
+			&sh &kp C &sh &kp I &sh &kp E &sh &kp A &kp DQT    		&kp QMARK &sh &kp H  &sh &kp T  &sh &kp S &sh &kp N
+			&sh &kp G &sh &kp X &sh &kp J &sh &kp K &kp SEMI       &kp COLON &sh &kp R  &sh &kp M &sh &kp F &sh &kp P
+							&mo EXT &kp SPACE         			  &sl SHIFT  &sl SYM
+			>;
+		};
+
+		// Main modifiers and arrow keys
+		ext_layer {
+			label = "EXT";
+			bindings = <
+			&kp ESC  &kp LG(X) &kp LG(V)  &sk LC(S) &kp V  &trans    	&kp PG_UP  &kp HOME &kp UP &kp END &kp CAPS
+			&sk LCTRL &sk LSHIFT   &sk LGUI  &sk LALT  &sk RALT 			&kp PG_DN &kp LEFT  &kp DOWN  &kp RIGHT   &kp DEL
+			&kp LC(Z)  &kp LC(X) &kp LC(C) &kp LC(V) &kp TAB             &kp LC(BSPC) &kp BSPC &C_MUTE &C_VOL_DN  &C_VOL_UP
+							&trans &kp LCTRL    									&kp ENTER  &mo FNC 
+			>;
+		};
+
+		// Numbers and symbols
+		sym1_layer {
+			label = "Sym";
+			bindings = <
+			&kp LESS_THAN &kp GREATER_THAN &kp LEFT_BRACKET &kp RIGHT_BRACKET &kp BACKSLASH		&kp PLUS 	&kp N7 &kp N8 &kp N9 &kp EQUAL
+			&kp EXCLAMATION &kp AT &kp LPAR &kp RPAR &kp STAR  									&kp MINUS 	&kp N4 &kp N5 &kp N6 &kp SLASH
+			&kp CARET &kp AMPERSAND &kp LEFT_BRACE &kp RIGHT_BRACE &kp UNDERSCORE 				&kp N0 		&kp N1 &kp N2 &kp N3 &kp PRCNT
+														&mo FNC  &sl SYM2       				&trans &trans
+			>;
+		};
+
+		// Low frequency symbols.
+		sym2_layer {
+			label = "Sym.2";
+			bindings = <
+			&kp HASH &kp UNDERSCORE &kp PND &kp EUR &kp DOLLAR      &none &none &none &none &none 
+			&kp GRAVE &kp TILDE &kp PIPE &none &none         		&none &none &none &none &none
+			&none &none &none &none &none			  				&none &none &none &none &none
+								&none &none        					&none &none 
+			>;
+		};
+
+
+		// Function keys with modifiers
+		fnc_layer {
+			label = "FNC";
+			bindings = <
+			&kp F1 &kp F2 &kp F3 &kp F4 &kp F5              	&kp F6 &kp F7 &kp F8 &kp F9 &kp F10 
+			&sk LCTRL &sk LSHIFT &sk LGUI &sk LALT &sk RALT  	&kp F11 &kp F12  &kp PRINTSCREEN &unstick &trans
+			&bt BT_CLR &none &none &none &none				  	&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bootloader 
+							  &none &none              			&none &none  
+			>;
+		};
+
+
+		// Used to change the keyboard's settings.
+		settings_layer {
+				label = "Sett";
+				bindings = <
+				&bootloader &none &none &bt BT_CLR &bt BT_SEL 0         &bt BT_SEL 3 &none &unstick &none &bootloader 
+				&none &none &none &none      &bt BT_SEL 1 				&bt BT_SEL 4 &none &none &none &none
+				&none &none &none &none      &bt BT_SEL 2               &bt BT_SEL 5 &none &none &none &none
+										&none &none                         &none &none 
+				>;
+		};
+	};
+};
