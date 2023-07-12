@@ -85,7 +85,7 @@
 			bindings = <
 			&kp ESC  &kp LG(X) &kp LG(V)  &sk LC(S) &kp V  &trans    	&kp PG_UP  &kp HOME &kp UP &kp END &kp CAPS
 			&sk LCTRL &sk LSHIFT   &sk LGUI  &sk LALT  &sk RALT 			&kp PG_DN &kp LEFT  &kp DOWN  &kp RIGHT   &kp DEL
-			&kp LC(Z)  &kp LC(X) &kp LC(C) &kp LC(V) &kp TAB             &kp LC(BSPC) &kp BSPC &C_MUTE &C_VOL_DN  &C_VOL_UP
+			&kp LC(Z)  &kp LC(X) &kp LC(C) &kp LC(V) &kp TAB             &kp LC(BSPC) &kp BSPC &kp C_MUTE &kp C_VOL_DN  &kp C_VOL_UP
 							&trans &kp LCTRL    									&kp ENTER  &mo FNC 
 			>;
 		};
