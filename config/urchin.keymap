@@ -61,10 +61,10 @@
 		default_layer {
 			label = "Base";
 			bindings = <
-			&kp B &kp Y &kp O &kp U &kp Z           &kp Q &kp L  &kp D  &kp W  &kp V 
-			&kp C &kp I &kp E &kp A &kp SQT    		&kp FSLH &kp H  &kp T  &kp S &kp N
-			&kp G &kp X &kp J &kp K &kp COMMA       &kp DOT &kp R  &kp M &kp F &kp P
-							&sl EXT &kp SPACE        &sl SHIFT &sl SYM1
+			&kp B &kp Y &kp O &kp U &kp Z           &kp Q 		&kp L  &kp D  	&kp W  	&kp V 
+			&kp C &kp I &kp E &kp A &kp SQT    		&kp FSLH 	&kp H  &kp T  	&kp S 	&kp N
+			&kp G &kp X &kp J &kp K &kp COMMA       &kp DOT 	&kp R  &kp M 	&kp F 	&kp P
+						&sl EXT 	&kp SPACE       &sl SHIFT 	&sl SYM1
 			>;
 		};
 
@@ -72,10 +72,10 @@
 		shift_layer {
 			label = "Shift";
 			bindings = <
-			&kp LS(B) &kp LS(Y) &kp LS(O) &kp LS(U) &kp LS(Z)           &kp LS(Q) &kp LS(L)  &kp LS(D)  &kp LS(W)  &kp LS(V) 
+			&kp LS(B) &kp LS(Y) &kp LS(O) &kp LS(U) &kp LS(Z)		&kp LS(Q) &kp LS(L)  &kp LS(D)  &kp LS(W)  &kp LS(V) 
 			&kp LS(C) &kp LS(I) &kp LS(E) &kp LS(A) &kp DQT    		&kp QMARK &kp LS(H)  &kp LS(T)  &kp LS(S) &kp LS(N)
-			&kp LS(G) &kp LS(X) &kp LS(J) &kp LS(K) &kp SEMI       &kp COLON &kp LS(R)  &kp LS(M) &kp LS(F) &kp LS(P)
-							&mo EXT &kp SPACE         			  &sl SHIFT  &sl SYM1
+			&kp LS(G) &kp LS(X) &kp LS(J) &kp LS(K) &kp SEMI       	&kp COLON &kp LS(R)  &kp LS(M) &kp LS(F) &kp LS(P)
+											&mo EXT &kp SPACE       &sl SHIFT  &sl SYM1
 			>;
 		};
 
@@ -83,10 +83,10 @@
 		ext_layer {
 			label = "EXT";
 			bindings = <
-			&kp ESC  &kp LG(X) &kp LG(V)  &sk LC(S) &kp V  &trans    	&kp PG_UP  &kp HOME &kp UP &kp END &kp CAPS
-			&sk LCTRL &sk LSHIFT   &sk LGUI  &sk LALT  &sk RALT 			&kp PG_DN &kp LEFT  &kp DOWN  &kp RIGHT   &kp DEL
-			&kp LC(Z)  &kp LC(X) &kp LC(C) &kp LC(V) &kp TAB             &kp LC(BSPC) &kp BSPC &kp C_MUTE &kp C_VOL_DN  &kp C_VOL_UP
-							&trans &kp LCTRL    									&kp ENTER  &mo FNC 
+			&kp ESC  	&kp LG(X) 	&kp LG(V)  	&sk LC(LS(V)) &trans    	&kp PG_UP  	&kp HOME 	&kp UP 		&kp END 		&kp CAPS
+			&sk LCTRL 	&sk LSHIFT 	&sk LGUI  	&sk LALT  &sk RALT 			&kp PG_DN 	&kp LEFT  	&kp DOWN  	&kp RIGHT   	&kp DEL
+			&kp LC(Z)  	&kp LC(X) 	&kp LC(C) 	&kp LC(V) &kp TAB           &kp LC(BSPC) &kp BSPC 	&kp C_MUTE 	&kp C_VOL_DN  	&kp C_VOL_UP
+												&trans &kp LCTRL    		&kp ENTER  &mo FNC 
 			>;
 		};
 
@@ -105,7 +105,7 @@
 		sym2_layer {
 			label = "Sym.2";
 			bindings = <
-			&kp HASH &kp UNDERSCORE &none &none &kp DOLLAR      &none &none &none &none &none 
+			&kp HASH &kp UNDERSCORE &none &none &kp DOLLAR      	&none &none &none &none &none 
 			&kp GRAVE &kp TILDE &kp PIPE &none &none         		&none &none &none &none &none
 			&none &none &none &none &none			  				&none &none &none &none &none
 								&none &none        					&none &none 
@@ -117,7 +117,7 @@
 		fnc_layer {
 			label = "FNC";
 			bindings = <
-			&kp F1 &kp F2 &kp F3 &kp F4 &kp F5              	&kp F6 &kp F7 &kp F8 &kp F9 &kp F10 
+			&kp F1 	&kp F2 	&kp F3	&kp F4 	&kp F5              &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 
 			&sk LCTRL &sk LSHIFT &sk LGUI &sk LALT &sk RALT  	&kp F11 &kp F12  &kp PRINTSCREEN &unstick &trans
 			&bt BT_CLR &none &none &none &none				  	&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bootloader 
 							  &none &none              			&none &none  
