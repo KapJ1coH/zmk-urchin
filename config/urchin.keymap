@@ -75,7 +75,7 @@
 			&sh &kp B &sh &kp Y &sh &kp O &sh &kp U &sh &kp Z           &sh &kp Q &sh &kp L  &sh &kp D  &sh &kp W  &sh &kp V 
 			&sh &kp C &sh &kp I &sh &kp E &sh &kp A &kp DQT    		&kp QMARK &sh &kp H  &sh &kp T  &sh &kp S &sh &kp N
 			&sh &kp G &sh &kp X &sh &kp J &sh &kp K &kp SEMI       &kp COLON &sh &kp R  &sh &kp M &sh &kp F &sh &kp P
-							&mo EXT &kp SPACE         			  &sl SHIFT  &sl SYM
+							&mo EXT &kp SPACE         			  &sl SHIFT  &sl SYM1
 			>;
 		};
 
