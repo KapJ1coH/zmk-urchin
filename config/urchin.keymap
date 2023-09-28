@@ -83,7 +83,7 @@
 		ext_layer {
 			label = "EXT";
 			bindings = <
-			&kp ESC  	&kp LG(X) 	&kp LG(V)  	&sk LC(LS(V)) &trans    	&kp PG_UP  	&kp HOME 	&kp UP 		&kp END 		&kp CAPS
+			&kp ESC  	&kp LG(X) 	&kp LG(V)  	&sk LC(LS(V)) &sk LA(TAB)    	&kp PG_UP  	&kp HOME 	&kp UP 		&kp END 		&kp INS
 			&sk LCTRL 	&sk LSHIFT 	&sk LGUI  	&sk LALT  &sk RALT 			&kp PG_DN 	&kp LEFT  	&kp DOWN  	&kp RIGHT   	&kp DEL
 			&kp LC(Z)  	&kp LC(X) 	&kp LC(C) 	&kp LC(V) &kp TAB           &kp LC(BSPC) &kp BSPC 	&kp C_MUTE 	&kp C_VOL_DN  	&kp C_VOL_UP
 												&trans &kp LCTRL    		&kp ENTER  &mo FNC 
@@ -106,8 +106,8 @@
 			label = "Sym.2";
 			bindings = <
 			&kp HASH &kp UNDERSCORE &none &none &kp DOLLAR      	&none &none &none &none &none 
-			&kp GRAVE &kp TILDE &kp PIPE &none &none         		&none &none &none &none &none
-			&none &none &none &none &none			  				&none &none &none &none &none
+			&kp GRAVE &kp TILDE &kp PIPE &none &kp GRAVE	         		&none &none &none &none &none
+			&none &none &none &none &kp HASH			  				&none &none &none &none &none
 								&none &none        					&none &none 
 			>;
 		};
