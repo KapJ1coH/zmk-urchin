@@ -13,129 +13,145 @@
 // -----------------
 
 &sk {
-	// don't release mods on other mods presses
-	ignore-modifiers;
+    // don't release mods on other mods presses
+    ignore-modifiers;
+    // release the sticky key if pressed again (cancels the stickiness)
+    quick-release;
 };
 
-
 / {
-	behaviors {
-		// Enables holding the first mod-tap key
-		// by performing a tap-release-hold sequence.
-		// To use it: "&qt KEYCODE1 KEYCODE2"
-		qt: quick_tap {
-			compatible = "zmk,behavior-hold-tap";
-			label = "QUICK_TAP";
-			#binding-cells = <2>;
-			flavor = "hold-preferred";
-			tapping-term-ms = <200>;
-			quick-tap-ms = <200>;
-			bindings = <&kp>, <&kp>;
-		};
+    behaviors {
+        // Enables holding the first mod-tap key
+        // by performing a tap-release-hold sequence.
+        qt: quick_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "QUICK_TAP";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&kp>, <&kp>;
+        };
 
-        // Homerow Mods
-		// Tap the key for the letter, hold for the modifier.
-		// Tapping term is set to 200ms.
-		hm: homerow_mods {
-			compatible = "zmk,behavior-hold-tap";
-			label = "HOMEROW_MODS";
-			#binding-cells = <2>;
-			tapping-term-ms = <200>;
-			quick-tap-ms = <200>;
-			flavor = "tap-preferred";
-			bindings = <&kp>, <&kp>;
-		};
-	};
+        // Homerow Mods - UPGRADED
+        // Uses "balanced" flavor + require-prior-idle-ms for better rolling
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>; // Requires 125ms of silence before mod activates
+            flavor = "balanced";           // Balanced flavor works best with prior-idle
+            bindings = <&kp>, <&kp>;
+        };
 
-	macros {
-		// sometimes my device thinks a modifier is being held down
-		// pressing all modifiers fixes it.
-		unstick: unstick {
-			label = "ZM_unstick";
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL &kp LALT &kp RALT &kp LGUI &kp RGUI>;
-		};
-	};
+        // Mod-Morph: Backspace on tap, Delete on Shift+Tap
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            label = "BACKSPACE_DELETE";
+            #binding-cells = <0>;
+            bindings = <&kp BSPC>, <&kp DEL>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
 
-	combos {
-		compatible = "zmk,combos";
-		// internal-left & external-right thumb keys
-		combo_sym2 {
-			timeout-ms = <200>;
-			key-positions = <31 33>;
-			bindings = <&mo SYM2>;
-		};
-	};
+    macros {
+        // sometimes my device thinks a modifier is being held down
+        // pressing all modifiers fixes it.
+        unstick: unstick {
+            label = "ZM_unstick";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL &kp LALT &kp RALT &kp LGUI &kp RGUI>;
+        };
+    };
 
-	keymap {
-		compatible = "zmk,keymap";
-		// Base alpha layer
-		default_layer {
-			label = "Base";
-			bindings = <
-			&kp B       &kp Y         &kp O       &kp U       &kp Z         &kp Q 		&kp L       &kp D  	    &kp W  	        &kp V 
-			&hm LCTRL C &hm LSHIFT I  &hm LGUI E  &hm LALT A  &kp SQT       &kp FSLH 	&hm LALT H  &hm LGUI T  &hm LSHIFT S 	&hm LCTRL N
-			&kp G       &kp X         &kp J       &kp K       &kp COMMA     &kp DOT 	    &kp R       &kp M 	    &kp F 	        &kp P
-						                            &sl EXT 	&kp SPACE     &sl SHIFT 	&sl SYM1
-			>;
-		};
+    combos {
+        compatible = "zmk,combos";
+        
+        // internal-left & external-right thumb keys
+        combo_sym2 {
+            timeout-ms = <200>;
+            key-positions = <31 33>;
+            bindings = <&mo SYM2>;
+        };
 
-		// Base layer shifted
-		shift_layer {
-			label = "Shift";
-			bindings = <
-			&kp LS(B) &kp LS(Y) &kp LS(O) &kp LS(U) &kp LS(Z)		&kp LS(Q) &kp LS(L)  &kp LS(D)  &kp LS(W)  &kp LS(V) 
-			&kp LS(C) &kp LS(I) &kp LS(E) &kp LS(A) &kp DQT    		&kp QMARK &kp LS(H)  &kp LS(T)  &kp LS(S) &kp LS(N)
-			&kp LS(G) &kp LS(X) &kp LS(J) &kp LS(K) &kp SEMI       	&kp COLON &kp LS(R)  &kp LS(M) &kp LS(F) &kp LS(P)
-											&mo EXT &kp SPACE       &sl SHIFT  &sl SYM1
-			>;
-		};
+        // Smart Caps Word: Triggered by pressing A (13) and H (16)
+        combo_caps_word {
+            timeout-ms = <50>;
+            key-positions = <13 16>;
+            bindings = <&caps_word>;
+        };
+    };
 
-		// Main modifiers and arrow keys
-		ext_layer {
-			label = "EXT";
-			bindings = <
-			&kp ESC  	&kp LG(X) 	&kp LG(V)  	&sk LA(LSHIFT)  &kp LC(LA(LS(S)))	&kp PG_UP  	&kp HOME 	&kp UP 		&kp END 		&kp INS
-			&sk LCTRL 	&sk LSHIFT 	&sk LGUI  	&sk LALT        &sk LA(LS(LCTRL)) 	&kp PG_DN 	&kp LEFT  	&kp DOWN  	&kp RIGHT   	&kp DEL
-			&kp LC(Z)  	&kp LC(X) 	&kp LC(C) 	&kp LC(V)       &kp TAB             &kp LC(BSPC) &kp BSPC 	&kp C_MUTE 	&kp C_VOL_DN  	&kp C_VOL_UP
-												&trans          &kp LCTRL    		&kp ENTER  &mo FNC 
-			>;
-		};
+    keymap {
+        compatible = "zmk,keymap";
 
-		// Numbers and symbols
-		sym1_layer {
-			label = "Sym";
-			bindings = <
-			&kp LESS_THAN &kp GREATER_THAN &kp LEFT_BRACKET &kp RIGHT_BRACKET &kp BACKSLASH		&kp PLUS 	&kp N7 &kp N8 &kp N9 &kp EQUAL
-			&kp EXCLAMATION &kp AT &kp LPAR &kp RPAR &kp STAR  									&kp MINUS 	&kp N4 &kp N5 &kp N6 &kp SLASH
-			&kp CARET &kp AMPERSAND &kp LEFT_BRACE &kp RIGHT_BRACE &kp UNDERSCORE 				&kp N0 		&kp N1 &kp N2 &kp N3 &kp PRCNT
-														&mo FNC  &sl SYM2       				&trans &trans
-			>;
-		};
+        // Base alpha layer
+        default_layer {
+            label = "Base";
+            bindings = <
+                &kp B        &kp Y         &kp O        &kp U        &kp Z          &kp Q          &kp L        &kp D         &kp W               &kp V
+                &hm LCTRL C  &hm LSHIFT I  &hm LGUI E   &hm LALT A   &kp SQT        &kp FSLH       &hm RALT H   &hm RGUI T    &hm RSHIFT S        &hm RCTRL N
+                &kp G        &kp X         &kp J        &kp K        &kp COMMA      &kp DOT        &kp R        &kp M         &kp F               &kp P
+                                                        &sl EXT      &kp SPACE      &sl SHIFT      &sl SYM1
+            >;
+        };
 
-		// Low frequency symbols.
-		sym2_layer {
-			label = "Sym.2";
-			bindings = <
-			&kp HASH &kp UNDERSCORE &none &none &kp DOLLAR      	&kp LS(1) &kp LS(2) &kp LS(3) &kp LS(4) &kp LS(5) 
-			&kp GRAVE &kp TILDE &kp PIPE &none &kp GRAVE	        &none &kp LA(A) &none &kp LA(A) &none
-			&none &none &none &none &kp HASH			  			&none &none &none &none &none
-								&none &none        					&none &none 
-			>;
-		};
+        // Base layer shifted
+        shift_layer {
+            label = "Shift";
+            bindings = <
+                &kp LS(B)    &kp LS(Y)     &kp LS(O)    &kp LS(U)    &kp LS(Z)      &kp LS(Q)      &kp LS(L)    &kp LS(D)     &kp LS(W)           &kp LS(V)
+                &kp LS(C)    &kp LS(I)     &kp LS(E)    &kp LS(A)    &kp DQT        &kp QMARK      &kp LS(H)    &kp LS(T)     &kp LS(S)           &kp LS(N)
+                &kp LS(G)    &kp LS(X)     &kp LS(J)    &kp LS(K)    &kp SEMI       &kp COLON      &kp LS(R)    &kp LS(M)     &kp LS(F)           &kp LS(P)
+                                                        &mo EXT      &kp SPACE      &sl SHIFT      &sl SYM1
+            >;
+        };
 
+        // Main modifiers and arrow keys
+        ext_layer {
+            label = "EXT";
+            bindings = <
+                &kp ESC      &kp LG(X)     &kp LG(V)    &sk LA(LSHIFT) &kp key_repeat     &kp PG_UP    &kp HOME     &kp UP        &kp END          &key_repeat
+                &sk LCTRL    &sk LSHIFT    &sk LGUI     &sk LALT       &sk LA(LS(LCTRL))  &kp PG_DN    &kp LEFT     &kp DOWN      &kp RIGHT        &kp DEL
+                &kp LC(Z)    &kp LC(X)     &kp LC(C)    &kp LC(V)      &kp TAB            &kp LC(BSPC) &bspc_del    &kp C_MUTE    &kp C_VOL_DN     &kp C_VOL_UP
+                                                        &trans         &kp LCTRL          &kp ENTER    &mo FNC
+            >;
+        };
 
-		// Function keys with modifiers
-		fnc_layer {
-			label = "FNC";
-			bindings = <
-			&kp F1 	&kp F2 	&kp F3	&kp F4 	&kp F5                              &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 
-			&sk LCTRL &sk LSHIFT &sk LGUI &sk LALT &sk RALT  	                &kp F11 &kp F12  &kp PRINTSCREEN &unstick &trans
-			&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3      &studio_unlock &none &none &none	&bootloader 
-							  &none &none              			                &none &none  
-			>;
-		};
+        // Numbers and symbols
+        sym1_layer {
+            label = "Sym";
+            bindings = <
+                &kp LESS_THAN   &kp GREATER_THAN &kp LEFT_BRACKET &kp RIGHT_BRACKET &kp BACKSLASH  &kp PLUS     &kp N7       &kp N8        &kp N9           &kp EQUAL
+                &kp EXCLAMATION &kp AT           &kp LPAR         &kp RPAR          &kp STAR       &kp MINUS    &kp N4       &kp N5        &kp N6           &kp SLASH
+                &kp CARET       &kp AMPERSAND    &kp LEFT_BRACE   &kp RIGHT_BRACE   &kp UNDERSCORE &kp N0       &kp N1       &kp N2        &kp N3           &kp PRCNT
+                                                                  &mo FNC           &sl SYM2       &trans       &trans
+            >;
+        };
 
-	};
+        // Low frequency symbols.
+        sym2_layer {
+            label = "Sym.2";
+            bindings = <
+                &kp HASH     &kp UNDERSCORE &none        &none        &kp DOLLAR     &kp LS(1)    &kp LS(2)    &kp LS(3)     &kp LS(4)           &kp LS(5)
+                &kp GRAVE    &kp TILDE      &kp PIPE     &none        &kp GRAVE      &none        &kp LA(A)    &none         &kp LA(A)           &none
+                &none        &none          &none        &none        &kp HASH       &none        &none        &none         &none               &none
+                                                         &none        &none          &none        &none
+            >;
+        };
+
+        // Function keys with modifiers
+        fnc_layer {
+            label = "FNC";
+            bindings = <
+                &kp F1       &kp F2         &kp F3       &kp F4       &kp F5         &kp F6       &kp F7       &kp F8        &kp F9              &kp F10
+                &sk LCTRL    &sk LSHIFT     &sk LGUI     &sk LALT     &sk RALT       &kp F11      &kp F12      &kp PRINTSCREEN &unstick          &trans
+                &bt BT_CLR   &bt BT_SEL 0   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3   &studio_unlock &none      &none         &none               &bootloader
+                                                         &none        &none          &none        &none
+            >;
+        };
+    };
 };
