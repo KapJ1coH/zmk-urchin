@@ -32,6 +32,19 @@
 			quick-tap-ms = <200>;
 			bindings = <&kp>, <&kp>;
 		};
+
+        // Homerow Mods
+		// Tap the key for the letter, hold for the modifier.
+		// Tapping term is set to 200ms.
+		hm: homerow_mods {
+			compatible = "zmk,behavior-hold-tap";
+			label = "HOMEROW_MODS";
+			#binding-cells = <2>;
+			tapping-term-ms = <200>;
+			quick-tap-ms = <200>;
+			flavor = "tap-preferred";
+			bindings = <&kp>, <&kp>;
+		};
 	};
 
 	macros {
@@ -61,10 +74,10 @@
 		default_layer {
 			label = "Base";
 			bindings = <
-			&kp B &kp Y &kp O &kp U &kp Z           &kp Q 		&kp L  &kp D  	&kp W  	&kp V 
-			&kp C &kp I &kp E &kp A &kp SQT    		&kp FSLH 	&kp H  &kp T  	&kp S 	&kp N
-			&kp G &kp X &kp J &kp K &kp COMMA       &kp DOT 	&kp R  &kp M 	&kp F 	&kp P
-						&sl EXT 	&kp SPACE       &sl SHIFT 	&sl SYM1
+			&kp B       &kp Y         &kp O       &kp U       &kp Z         &kp Q 		&kp L       &kp D  	    &kp W  	        &kp V 
+			&hm LCTRL C &hm LSHIFT I  &hm LGUI E  &hm LALT A  &kp SQT       &kp FSLH 	&hm LALT H  &hm LGUI T  &hm LSHIFT S 	&hm LCTRL N
+			&kp G       &kp X         &kp J       &kp K       &kp COMMA     &kp DOT 	    &kp R       &kp M 	    &kp F 	        &kp P
+						                            &sl EXT 	&kp SPACE     &sl SHIFT 	&sl SYM1
 			>;
 		};
 
